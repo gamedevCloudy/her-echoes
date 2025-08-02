@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://tower_scene_uid"]
+
+[ext_resource type="PackedScene" path="res://Assets/tower.glb" id="1_tower_model"]
+[ext_resource type="Script" path="res://Interact/interactable.gd" id="2_tower_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tower"]
+size = Vector3(3, 8, 3)
+
+[node name="Tower" instance=ExtResource("1_tower_model")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0"]
+script = ExtResource("2_tower_script")
+prompt_message = "[E] Climb Tower"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("BoxShape3D_tower")

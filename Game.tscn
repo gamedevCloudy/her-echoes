@@ -1,18 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4qmoecwhl3v8"]
+[gd_scene load_steps=12 format=3 uid="uid://c4qmoecwhl3v8"]
 
-[ext_resource type="Shader" uid="uid://nthg3voq3tfa" path="res://inside.gdshader" id="2_sb48q"]
 [ext_resource type="PackedScene" uid="uid://cdwuv02yetwu1" path="res://Player/player.tscn" id="3_t88pq"]
 [ext_resource type="PackedScene" uid="uid://7fx8j61vwww5" path="res://Level/Level.tscn" id="3_u44n3"]
 [ext_resource type="PackedScene" uid="uid://dscwh8sde06vl" path="res://Assets/anchor.tscn" id="4_sb48q"]
-[ext_resource type="PackedScene" path="res://Assets/rope.tscn" id="5_t88pq"]
+[ext_resource type="PackedScene" uid="uid://11f756yxyfeh" path="res://Assets/rope.tscn" id="5_t88pq"]
+[ext_resource type="PackedScene" path="res://Assets/airplane.tscn" id="6_airplane"]
+[ext_resource type="PackedScene" path="res://Assets/rowboat.tscn" id="7_rowboat"]
+[ext_resource type="PackedScene" path="res://Assets/tower.tscn" id="8_tower"]
+[ext_resource type="PackedScene" path="res://Assets/ladder.tscn" id="9_ladder"]
+[ext_resource type="PackedScene" path="res://Assets/train_complete.tscn" id="10_train"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0b4ue"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2txt"]
-shader = ExtResource("2_sb48q")
-shader_parameter/red_boost_power = 1.5
-shader_parameter/contrast = 1.1
-shader_parameter/vignette_strength = 0.5
 
 [sub_resource type="Environment" id="Environment_u44n3"]
 background_mode = 1
@@ -33,20 +31,6 @@ adjustment_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568044, 0)
 material = SubResource("StandardMaterial3D_0b4ue")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
-material = SubResource("ShaderMaterial_f2txt")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="Player" parent="." instance=ExtResource("3_t88pq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.173, 3.07771, 146.311)
 
@@ -61,7 +45,39 @@ light_energy = 0.4
 [node name="Terrain3D" parent="." instance=ExtResource("3_u44n3")]
 
 [node name="Anchor" parent="." instance=ExtResource("4_sb48q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.687, 0.993931, 144.668)
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -93.6837, 3.08319, -145.473)
 
 [node name="Rope" parent="." instance=ExtResource("5_t88pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.882, 0.769595, 142.706)
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -94.8787, 2.20141, -141.395)
+
+[node name="StoryElements" type="Node3D" parent="."]
+
+[node name="CrashSite" type="Node3D" parent="StoryElements"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.167, -0.377867, 136.881)
+
+[node name="CrashedAirplane" parent="StoryElements/CrashSite" instance=ExtResource("6_airplane")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+
+[node name="PondArea" type="Node3D" parent="StoryElements"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.142, 1, -130.846)
+
+[node name="Rowboat1" parent="StoryElements/PondArea" instance=ExtResource("7_rowboat")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 14.1835, 0.893692, -20.7388)
+
+[node name="Rowboat2" parent="StoryElements/PondArea" instance=ExtResource("7_rowboat")]
+transform = Transform3D(0.173205, 0, 0.1, 0, 0.2, 0, -0.1, 0, 0.173205, 1.18346, 0.893692, -15.7388)
+
+[node name="Tower" type="Node3D" parent="StoryElements"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.7785, 13.5077, 63.0448)
+
+[node name="WatchTower" parent="StoryElements/Tower" instance=ExtResource("8_tower")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -2.08402, 5.58245)
+
+[node name="TowerLadder" parent="StoryElements/Tower" instance=ExtResource("9_ladder")]
+transform = Transform3D(-0.400312, 0.778724, 4.92274, 0.0631167, 4.93899, -0.776162, -4.98355, 0, -0.405257, -4.34153, -9.31364, 6.12192)
+
+[node name="TrainArea" type="Node3D" parent="StoryElements"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -50)
+
+[node name="IncomingTrain" parent="StoryElements/TrainArea" instance=ExtResource("10_train")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -272.49, 0, 98.1362)

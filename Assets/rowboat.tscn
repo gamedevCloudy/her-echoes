@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://rowboat_scene_uid"]
+
+[ext_resource type="PackedScene" path="res://Assets/Rowboat.glb" id="1_rowboat_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rowboat"]
+size = Vector3(4, 1, 8)
+
+[node name="Rowboat" instance=ExtResource("1_rowboat_model")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_rowboat")

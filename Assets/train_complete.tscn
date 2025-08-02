@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://train_complete_uid"]
+
+[ext_resource type="PackedScene" path="res://Assets/train_front.glb" id="1_train_front"]
+[ext_resource type="PackedScene" path="res://Assets/train_coal_container.glb" id="2_train_coal"]
+[ext_resource type="PackedScene" path="res://Assets/train_wagon.glb" id="3_train_wagon"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_train_front"]
+size = Vector3(3, 3, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_train_coal"]
+size = Vector3(3, 2, 6)
+
+[node name="TrainComplete" type="Node3D"]
+
+[node name="TrainFront" parent="." instance=ExtResource("1_train_front")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TrainFront" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainFront/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_train_front")
+
+[node name="TrainCoalContainer" parent="." instance=ExtResource("2_train_coal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TrainCoalContainer" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainCoalContainer/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_train_coal")
+
+[node name="TrainWagon" parent="." instance=ExtResource("3_train_wagon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)

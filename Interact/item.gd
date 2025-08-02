@@ -7,7 +7,7 @@ signal item_picked_up(item: Item)
 
 func _ready() -> void:
 	if is_pickupable:
-		prompt_message = "Press E to pick up " + item_name
+		prompt_message = "[E] " + item_name
 
 func interact() -> void:
 	if is_pickupable:

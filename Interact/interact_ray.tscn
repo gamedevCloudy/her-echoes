@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://vt5o5e6b8r23" path="res://Interact/interact_ray.gd" id="1_jmrxg"]
 
 [node name="InteractRay" type="RayCast3D"]
+enabled = true
 target_position = Vector3(0, 0, -4)
 script = ExtResource("1_jmrxg")
 

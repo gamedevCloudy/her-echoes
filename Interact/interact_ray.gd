@@ -9,10 +9,12 @@ func _physics_process(delta: float) -> void:
 	
 	if is_colliding(): 
 		var collider = get_collider()
+		print("Ray hit: ", collider, " | Type: ", collider.get_class() if collider else "null")
 		
 		if collider is Interactable: 
 			current_interactable = collider
 			prompt.text = collider.prompt_message
+			print("Found interactable: ", collider.prompt_message)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and current_interactable:
