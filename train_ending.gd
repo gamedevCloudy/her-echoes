@@ -1,7 +1,7 @@
 extends Node3D
 class_name TrainEnding
 
-@export var train_camera_position: Vector3 = Vector3(-237, 15, 49)  # Position on train looking at tower
+@export var train_camera_position: Vector3 = Vector3(150, 15, 49)  # Position on departing train looking back at tower
 @export var fade_speed: float = 1.5
 
 var player: Node3D
@@ -17,6 +17,11 @@ func start_train_ending():
 	if player:
 		player.can_move = false
 		original_camera = player.get_node("%Camera3D")
+	
+	# Make train visible for the ending
+	var train = get_tree().current_scene.get_node("StoryElements/TrainArea/IncomingTrain")
+	if train:
+		train.visible = true
 	
 	# Create ending camera on train
 	ending_camera = Camera3D.new()

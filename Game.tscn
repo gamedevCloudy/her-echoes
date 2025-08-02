@@ -92,10 +92,11 @@ transform = Transform3D(-0.400312, 0.778724, 4.92274, 0.0631167, 4.93899, -0.776
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
 
 [node name="TrainArea" type="Node3D" parent="StoryElements"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -237.689, 0, 49.8051)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, 49.8051)
 
 [node name="IncomingTrain" parent="StoryElements/TrainArea" instance=ExtResource("10_train")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 4.6559, 0)
+visible = false
 
 [node name="Root Scene" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 48.7899, 4.98296, -0.359486)
@@ -114,6 +115,24 @@ transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, 
 
 [node name="Root Scene6" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
 transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, 492.916, 4.98296, -0.359486)
+
+[node name="Root Scene7" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -478.75, 4.98296, -0.359486)
+
+[node name="Root Scene8" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -388.937, 4.98296, -0.359486)
+
+[node name="Root Scene9" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -299.143, 4.98296, -0.359486)
+
+[node name="Root Scene10" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, -213.675, 4.98296, -0.359486)
+
+[node name="Root Scene11" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, -123.902, 4.98296, -0.359486)
+
+[node name="Root Scene12" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, -34.6244, 4.98296, -0.359486)
 
 [node name="DialogueSystem" type="Node" parent="."]
 script = ExtResource("11_dialogue_system")
