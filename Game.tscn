@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4qmoecwhl3v8"]
+[gd_scene load_steps=9 format=3 uid="uid://c4qmoecwhl3v8"]
 
 [ext_resource type="Shader" uid="uid://nthg3voq3tfa" path="res://inside.gdshader" id="2_sb48q"]
 [ext_resource type="PackedScene" uid="uid://cdwuv02yetwu1" path="res://Player/player.tscn" id="3_t88pq"]
 [ext_resource type="PackedScene" uid="uid://7fx8j61vwww5" path="res://Level/Level.tscn" id="3_u44n3"]
 [ext_resource type="PackedScene" uid="uid://dscwh8sde06vl" path="res://Assets/anchor.tscn" id="4_sb48q"]
+[ext_resource type="PackedScene" path="res://Assets/rope.tscn" id="5_t88pq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0b4ue"]
 
@@ -61,3 +62,6 @@ light_energy = 0.4
 
 [node name="Anchor" parent="." instance=ExtResource("4_sb48q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.687, 0.993931, 144.668)
+
+[node name="Rope" parent="." instance=ExtResource("5_t88pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.882, 0.769595, 142.706)
