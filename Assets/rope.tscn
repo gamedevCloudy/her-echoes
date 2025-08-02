@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://rope_scene_uid"]
+
+[ext_resource type="PackedScene" uid="uid://bwxk3t7y2f1qd" path="res://Assets/Rope.glb" id="1_rope_model"]
+[ext_resource type="Script" path="res://Interact/item.gd" id="2_rope_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rope"]
+size = Vector3(0.5, 0.3, 2.0)
+
+[node name="Rope" instance=ExtResource("1_rope_model")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0"]
+script = ExtResource("2_rope_script")
+item_name = "Rope"
+is_pickupable = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_rope")
