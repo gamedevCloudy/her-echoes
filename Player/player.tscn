@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://cdwuv02yetwu1"]
+
+[ext_resource type="Script" uid="uid://dqm5bxqjyf66c" path="res://Player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://d0df6uvosx86c" path="res://Interact/interact_ray.tscn" id="2_4ntmi"]
+[ext_resource type="Texture2D" uid="uid://d4dxcyx467d6c" path="res://Interact/Circle.png" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://da7eso0gxvoo7" path="res://Player/player_sound_system.gd" id="4_sound"]
+[ext_resource type="AudioStream" uid="uid://c3aw5gmkrpfpy" path="res://Audio/breathing.wav" id="5_breathing"]
+[ext_resource type="AudioStream" uid="uid://dxw02515nawm1" path="res://Audio/hurt_grunt.ogg" id="6_hurt"]
+[ext_resource type="AudioStream" uid="uid://jsrwvsfhc4yb" path="res://Audio/walking.mp3" id="7_walking"]
+[ext_resource type="AudioStream" uid="uid://c54so881cksqy" path="res://Audio/scream.wav" id="8_scream"]
+[ext_resource type="AudioStream" uid="uid://dkixj14ygay2d" path="res://Audio/whisper1.wav" id="9_whisper1"]
+[ext_resource type="AudioStream" uid="uid://mdd075nkwqaf" path="res://Audio/whisper2.mp3" id="10_whisper2"]
+[ext_resource type="AudioStream" uid="uid://jehm4shdg605" path="res://Audio/whisper_extra.wav" id="11_apopc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4flbx")
+head_sway_intensity = 1.0
+head_sway_rotation_intensity = 10.0
+fear_shake_intensity = 0.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_onrkg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51247, 0)
+
+[node name="InteractRay" parent="." instance=ExtResource("2_4ntmi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47817, 0)
+
+[node name="SoundSystem" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_sound")
+hallucination_interval_min = 15.0
+hallucination_interval_max = 40.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrossCirle" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_btcbx")
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="BreathingPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("5_breathing")
+volume_db = -10.0
+
+[node name="HurtGruntPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("6_hurt")
+volume_db = -5.0
+
+[node name="WalkingPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("7_walking")
+volume_db = -8.0
+
+[node name="ScreamPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("8_scream")
+
+[node name="HallucinationPlayers" type="Node3D" parent="."]
+
+[node name="WhisperPlayer1" type="AudioStreamPlayer3D" parent="HallucinationPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("9_whisper1")
+attenuation_model = 1
+volume_db = -1.0
+max_distance = 30.0
+
+[node name="WhisperPlayer2" type="AudioStreamPlayer3D" parent="HallucinationPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("10_whisper2")
+attenuation_model = 1
+volume_db = 2.1
+max_distance = 30.0
+
+[node name="WhisperPlayer3" type="AudioStreamPlayer3D" parent="HallucinationPlayers"]
+unique_name_in_owner = true
+stream = ExtResource("11_apopc")
+attenuation_model = 1
+volume_db = -2.0
+max_distance = 30.0
