@@ -1,13 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://b114f0c5eagw2"]
+[gd_scene load_steps=17 format=3 uid="uid://b114f0c5eagw2"]
 
 [ext_resource type="PackedScene" uid="uid://c8d2xw1ae0plm" path="res://Assets/Airplane.glb" id="1_airplane_model"]
+[ext_resource type="AudioStream" uid="uid://b6jdgd86bq6lw" path="res://Audio/fire_burning.wav" id="2_fire_sound"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_airplane"]
 size = Vector3(8, 2, 12)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fire_billboard"]
+transparency = 1
+albedo_color = Color(1, 0.8, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.6, 0.2, 1)
+emission_energy_multiplier = 2.0
+billboard_mode = 1
+
 [sub_resource type="Gradient" id="Gradient_fire"]
-offsets = PackedFloat32Array(0, 0, 0, 1)
-colors = PackedColorArray(1, 0.8, 0.2, 1, 1, 0.2, 0.1, 1, 0.1, 0.1, 0.1, 0.5, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 1, 0.2, 1, 1, 0.4, 0.1, 1, 0.3, 0.1, 0.1, 0.8, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fire"]
 gradient = SubResource("Gradient_fire")
@@ -21,13 +30,55 @@ curve = SubResource("Curve_fire_scale")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fire"]
 direction = Vector3(0, 1, 0)
-initial_velocity_min = 2.0
-initial_velocity_max = 4.0
-gravity = Vector3(0, -1, 0)
-scale_min = 0.3
-scale_max = 0.8
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.5
+scale_max = 1.2
 scale_curve = SubResource("CurveTexture_fire_scale")
 color_ramp = SubResource("GradientTexture1D_fire")
+
+[sub_resource type="QuadMesh" id="QuadMesh_fire"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smoke_billboard"]
+transparency = 1
+albedo_color = Color(0.3, 0.3, 0.3, 0.6)
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smoke"]
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0.2, 0)
+scale_max = 2.0
+color = Color(0.3, 0.3, 0.3, 0.6)
+
+[sub_resource type="QuadMesh" id="QuadMesh_smoke"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ember_billboard"]
+albedo_color = Color(1, 0.6, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.4, 0.1, 1)
+emission_energy_multiplier = 1.5
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ember"]
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.5
+gravity = Vector3(0, 0.8, 0)
+scale_min = 0.05
+scale_max = 0.15
+color = Color(1, 0.6, 0.2, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ember"]
+size = Vector2(0.1, 0.1)
 
 [node name="Airplane" instance=ExtResource("1_airplane_model")]
 
@@ -38,21 +89,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_airplane")
 
 [node name="FireEffects" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52253, 0, 0)
 
 [node name="FireParticles" type="GPUParticles3D" parent="FireEffects" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 3)
-amount = 50
-lifetime = 2.0
-visibility_aabb = AABB(-2, 0, -2, 4, 8, 4)
+material_override = SubResource("StandardMaterial3D_fire_billboard")
+amount = 25
+lifetime = 1.5
+visibility_aabb = AABB(-2, 0, -2, 4, 6, 4)
 process_material = SubResource("ParticleProcessMaterial_fire")
+draw_pass_1 = SubResource("QuadMesh_fire")
 
 [node name="SmokeParticles" type="GPUParticles3D" parent="FireEffects" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-amount = 30
-lifetime = 4.0
-visibility_aabb = AABB(-3, 0, -3, 6, 12, 6)
+material_override = SubResource("StandardMaterial3D_smoke_billboard")
+amount = 15
+lifetime = 3.0
+visibility_aabb = AABB(-3, 0, -3, 6, 10, 6)
+process_material = SubResource("ParticleProcessMaterial_smoke")
+draw_pass_1 = SubResource("QuadMesh_smoke")
 
 [node name="EmberParticles" type="GPUParticles3D" parent="FireEffects" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 2)
-amount = 20
-lifetime = 3.0
+material_override = SubResource("StandardMaterial3D_ember_billboard")
+amount = 10
+lifetime = 2.0
+visibility_aabb = AABB(-2, 0, -2, 4, 4, 4)
+process_material = SubResource("ParticleProcessMaterial_ember")
+draw_pass_1 = SubResource("QuadMesh_ember")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="FireEffects" index="3"]
+stream = ExtResource("2_fire_sound")
+attenuation_model = 1
+volume_db = -5.0
+autoplay = true
+max_distance = 50.0
+
+[node name="PUSHILIN_Plane_Circle_000" parent="." index="2"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

@@ -22,7 +22,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			var item = current_interactable as Item
 			var player = get_owner()
 			if player.has_method("add_item_to_inventory"):
-				item.item_picked_up.connect(player.add_item_to_inventory.bind(item.item_name))
+				# Connect signal only if not already connected
+				if not item.item_picked_up.is_connected(player.add_item_to_inventory):
+					item.item_picked_up.connect(player.add_item_to_inventory)
 				item.interact()
 		elif current_interactable.has_method("interact"):
 			current_interactable.interact()

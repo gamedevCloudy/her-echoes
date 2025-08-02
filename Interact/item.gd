@@ -12,4 +12,8 @@ func _ready() -> void:
 func interact() -> void:
 	if is_pickupable:
 		item_picked_up.emit(self)
-		queue_free()
+		# Hide the entire parent node (the visual model)
+		get_parent().hide()
+		# Also disable this collision body so it can't be detected
+		set_collision_layer_value(1, false)
+		set_collision_mask_value(1, false)

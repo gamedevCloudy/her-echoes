@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://da7eso0gxvoo7" path="res://Player/player_sound_system.gd" id="4_sound"]
 [ext_resource type="AudioStream" uid="uid://c3aw5gmkrpfpy" path="res://Audio/breathing.wav" id="5_breathing"]
 [ext_resource type="AudioStream" uid="uid://dxw02515nawm1" path="res://Audio/hurt_grunt.ogg" id="6_hurt"]
-[ext_resource type="AudioStream" uid="uid://jsrwvsfhc4yb" path="res://Audio/walking.mp3" id="7_walking"]
+[ext_resource type="AudioStream" uid="uid://du3d10415w5q3" path="res://Audio/running.mp3" id="7_walking"]
 [ext_resource type="AudioStream" uid="uid://c54so881cksqy" path="res://Audio/scream.wav" id="8_scream"]
 [ext_resource type="AudioStream" uid="uid://dkixj14ygay2d" path="res://Audio/whisper1.wav" id="9_whisper1"]
 [ext_resource type="AudioStream" uid="uid://mdd075nkwqaf" path="res://Audio/whisper2.mp3" id="10_whisper2"]

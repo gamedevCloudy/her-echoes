@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://train_complete_uid"]
+[gd_scene load_steps=9 format=3 uid="uid://bt6rsxuldfoww"]
 
-[ext_resource type="PackedScene" path="res://Assets/train_front.glb" id="1_train_front"]
-[ext_resource type="PackedScene" path="res://Assets/train_coal_container.glb" id="2_train_coal"]
-[ext_resource type="PackedScene" path="res://Assets/train_wagon.glb" id="3_train_wagon"]
+[ext_resource type="PackedScene" uid="uid://c73dgfbvb4xse" path="res://Assets/train_front.glb" id="1_train_front"]
+[ext_resource type="PackedScene" uid="uid://78pdl8evueob" path="res://Assets/train_coal_container.glb" id="2_train_coal"]
+[ext_resource type="PackedScene" uid="uid://ddnkhgp0b7kn4" path="res://Assets/train_wagon.glb" id="3_train_wagon"]
+[ext_resource type="AudioStream" uid="uid://bpfmkwkckr4kc" path="res://Audio/train_passing.wav" id="4_train_passing"]
+[ext_resource type="AudioStream" uid="uid://lt2t7jacp4k7" path="res://Audio/train_horn.mp3" id="5_train_horn"]
+[ext_resource type="Script" uid="uid://b0gh7mjubot0y" path="res://Audio/train_sound_controller.gd" id="6_train_controller"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_train_front"]
 size = Vector3(3, 3, 8)
@@ -11,21 +14,37 @@ size = Vector3(3, 3, 8)
 size = Vector3(3, 2, 6)
 
 [node name="TrainComplete" type="Node3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="TrainFront" parent="." instance=ExtResource("1_train_front")]
+transform = Transform3D(-0.999976, 0, -0.00689397, 0, 1, 0, 0.00689397, 0, -0.999976, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TrainFront" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TrainFront"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainFront/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainFront/StaticBody3D"]
 shape = SubResource("BoxShape3D_train_front")
 
 [node name="TrainCoalContainer" parent="." instance=ExtResource("2_train_coal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(-0.999982, 0, 0.00591671, 0, 1, 0, -0.00591671, 0, -0.999982, -9.66972, -0.0287781, 0.0849991)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TrainCoalContainer" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TrainCoalContainer"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainCoalContainer/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrainCoalContainer/StaticBody3D"]
 shape = SubResource("BoxShape3D_train_coal")
 
 [node name="TrainWagon" parent="." instance=ExtResource("3_train_wagon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3901, 0, 0.00707436)
+
+[node name="TrainSounds" type="Node3D" parent="."]
+script = ExtResource("6_train_controller")
+
+[node name="TrainPassingSound" type="AudioStreamPlayer3D" parent="TrainSounds"]
+stream = ExtResource("4_train_passing")
+attenuation_model = 1
+volume_db = -3.0
+max_distance = 100.0
+
+[node name="TrainHornSound" type="AudioStreamPlayer3D" parent="TrainSounds"]
+stream = ExtResource("5_train_horn")
+attenuation_model = 1
+max_distance = 150.0

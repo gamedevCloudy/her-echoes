@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8k5q2bvxm8r4"]
+
+[ext_resource type="Script" path="res://tower_interaction.gd" id="1_tower"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tower"]
+size = Vector3(8, 4, 8)
+
+[node name="TowerInteraction" type="StaticBody3D"]
+script = ExtResource("1_tower")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_tower")

@@ -1,14 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4qmoecwhl3v8"]
+[gd_scene load_steps=20 format=3 uid="uid://c4qmoecwhl3v8"]
 
 [ext_resource type="PackedScene" uid="uid://cdwuv02yetwu1" path="res://Player/player.tscn" id="3_t88pq"]
 [ext_resource type="PackedScene" uid="uid://7fx8j61vwww5" path="res://Level/Level.tscn" id="3_u44n3"]
 [ext_resource type="PackedScene" uid="uid://dscwh8sde06vl" path="res://Assets/anchor.tscn" id="4_sb48q"]
 [ext_resource type="PackedScene" uid="uid://11f756yxyfeh" path="res://Assets/rope.tscn" id="5_t88pq"]
-[ext_resource type="PackedScene" path="res://Assets/airplane.tscn" id="6_airplane"]
-[ext_resource type="PackedScene" path="res://Assets/rowboat.tscn" id="7_rowboat"]
+[ext_resource type="PackedScene" uid="uid://b114f0c5eagw2" path="res://Assets/airplane.tscn" id="6_airplane"]
+[ext_resource type="PackedScene" uid="uid://clhch5b6l0xq3" path="res://Assets/rowboat.tscn" id="7_rowboat"]
+[ext_resource type="PackedScene" uid="uid://8fysbiacn6wt" path="res://Assets/Dock.glb" id="7_yx171"]
 [ext_resource type="PackedScene" path="res://Assets/tower.tscn" id="8_tower"]
 [ext_resource type="PackedScene" path="res://Assets/ladder.tscn" id="9_ladder"]
-[ext_resource type="PackedScene" path="res://Assets/train_complete.tscn" id="10_train"]
+[ext_resource type="PackedScene" uid="uid://bt6rsxuldfoww" path="res://Assets/train_complete.tscn" id="10_train"]
+[ext_resource type="Script" uid="uid://bwuyb07q6jj6f" path="res://Dialogue/dialogue_system.gd" id="11_dialogue_system"]
+[ext_resource type="Script" uid="uid://bvt4hdt1s2iwt" path="res://game_controller.gd" id="11_game_controller"]
+[ext_resource type="AudioStream" uid="uid://brxm6rqhv26wa" path="res://Dialogue/radio_static.wav" id="12_static"]
+[ext_resource type="PackedScene" uid="uid://bhqqeomxyg5ij" path="res://Assets/railway_track.glb" id="13_0yprl"]
+[ext_resource type="PackedScene" uid="uid://bkm8a1x2ywv4g" path="res://Dialogue/dialogue_waypoint.tscn" id="13_waypoint"]
+[ext_resource type="PackedScene" path="res://Dialogue/nav_waypoint.tscn" id="15_qjyg3"]
+[ext_resource type="PackedScene" path="res://tower_interaction.tscn" id="16_tower_interact"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0b4ue"]
 
@@ -26,13 +34,14 @@ fog_height_density = 0.125
 adjustment_enabled = true
 
 [node name="Game" type="Node3D"]
+script = ExtResource("11_game_controller")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568044, 0)
 material = SubResource("StandardMaterial3D_0b4ue")
 
 [node name="Player" parent="." instance=ExtResource("3_t88pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.173, 3.07771, 146.311)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.838, 4.50698, 161.725)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_u44n3")
@@ -44,19 +53,13 @@ light_energy = 0.4
 
 [node name="Terrain3D" parent="." instance=ExtResource("3_u44n3")]
 
-[node name="Anchor" parent="." instance=ExtResource("4_sb48q")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -93.6837, 3.08319, -145.473)
-
-[node name="Rope" parent="." instance=ExtResource("5_t88pq")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -94.8787, 2.20141, -141.395)
-
 [node name="StoryElements" type="Node3D" parent="."]
 
 [node name="CrashSite" type="Node3D" parent="StoryElements"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.167, -0.377867, 136.881)
 
 [node name="CrashedAirplane" parent="StoryElements/CrashSite" instance=ExtResource("6_airplane")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+transform = Transform3D(0.811459, -0.25715, -0.524793, 0.127578, 0.954277, -0.270332, 0.570314, 0.152412, 0.807164, 4.16374, 1.97284, 6.2562)
 
 [node name="PondArea" type="Node3D" parent="StoryElements"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.142, 1, -130.846)
@@ -67,6 +70,15 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 14.1835, 0.893692, -20.
 [node name="Rowboat2" parent="StoryElements/PondArea" instance=ExtResource("7_rowboat")]
 transform = Transform3D(0.173205, 0, 0.1, 0, 0.2, 0, -0.1, 0, 0.173205, 1.18346, 0.893692, -15.7388)
 
+[node name="Anchor" parent="StoryElements/PondArea" instance=ExtResource("4_sb48q")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 10.4583, 2.08319, -14.6269)
+
+[node name="Rope" parent="StoryElements/PondArea" instance=ExtResource("5_t88pq")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 9.26327, 1.20141, -10.5489)
+
+[node name="Dock" parent="StoryElements/PondArea" instance=ExtResource("7_yx171")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -12.3852, -2.70852, -17.905)
+
 [node name="Tower" type="Node3D" parent="StoryElements"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.7785, 13.5077, 63.0448)
 
@@ -76,8 +88,94 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -2.08402, 5.58245)
 [node name="TowerLadder" parent="StoryElements/Tower" instance=ExtResource("9_ladder")]
 transform = Transform3D(-0.400312, 0.778724, 4.92274, 0.0631167, 4.93899, -0.776162, -4.98355, 0, -0.405257, -4.34153, -9.31364, 6.12192)
 
+[node name="TowerInteraction" parent="StoryElements/Tower" instance=ExtResource("16_tower_interact")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+
 [node name="TrainArea" type="Node3D" parent="StoryElements"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -237.689, 0, 49.8051)
 
 [node name="IncomingTrain" parent="StoryElements/TrainArea" instance=ExtResource("10_train")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -272.49, 0, 98.1362)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 4.6559, 0)
+
+[node name="Root Scene" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 48.7899, 4.98296, -0.359486)
+
+[node name="Root Scene2" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 138.603, 4.98296, -0.359486)
+
+[node name="Root Scene3" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 228.397, 4.98296, -0.359486)
+
+[node name="Root Scene4" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, 313.865, 4.98296, -0.359486)
+
+[node name="Root Scene5" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, 403.638, 4.98296, -0.359486)
+
+[node name="Root Scene6" parent="StoryElements/TrainArea" instance=ExtResource("13_0yprl")]
+transform = Transform3D(4.99997, -0.0174533, 0, 0.0174533, 4.99997, 0, 0, 0, 5, 492.916, 4.98296, -0.359486)
+
+[node name="DialogueSystem" type="Node" parent="."]
+script = ExtResource("11_dialogue_system")
+static_audio = ExtResource("12_static")
+
+[node name="DialogueWaypoints" type="Node3D" parent="."]
+
+[node name="WakeupWaypoint" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.129, 1.10852, 150.403)
+dialogue_name = "uncertainty_wakeup"
+
+[node name="BlameWaypoint" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.5209, 2, 101.168)
+dialogue_name = "blame_conflict"
+
+[node name="TowerApproachWaypoint" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96967, 4.09595, 55.3301)
+dialogue_name = "hope_radio_guides"
+
+[node name="After Tower" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.907, 4.01787, 1.87519)
+dialogue_name = "mystery_clues"
+
+[node name="ReturnWaypoint" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.9896, 2.4339, -133.601)
+dialogue_name = "urgency_escape"
+
+[node name="TowerTopWaypoint" parent="DialogueWaypoints" instance=ExtResource("13_waypoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 13.838, 65.6619)
+dialogue_name = "radio_reveal"
+
+[node name="NavWaypoints" type="Node3D" parent="."]
+
+[node name="NavWaypoint" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.075, 0.937733, 136.669)
+
+[node name="NavWaypoint2" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2105, 2.87579, 58.7012)
+
+[node name="NavWaypoint3" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.3385, 2.87579, 58.7012)
+
+[node name="NavWaypoint4" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.196, 2.87579, 28.8484)
+
+[node name="NavWaypoint5" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.764, 1.63214, -69.0533)
+
+[node name="NavWaypoint6" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.3945, 1.63214, -140.005)
+
+[node name="NavWaypoint7" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9756, 1.63214, -122.007)
+
+[node name="NavWaypoint8" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9756, 1.63214, -69.526)
+
+[node name="NavWaypoint9" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7558, 1.63214, -69.526)
+
+[node name="NavWaypoint10" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1939, 1.63214, -10.656)
+
+[node name="NavWaypoint11" parent="NavWaypoints" instance=ExtResource("15_qjyg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.6268, 1.63214, 32.4522)

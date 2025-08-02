@@ -16,15 +16,15 @@ Core Loop:
 - [ ] Player wakes up 
 - [ ] Finds Items: 
 	- [x] Anchor 
-	- [ ] Rope/Chain 
+	- [x] Rope/Chain 
 - [ ] Side Quests/Mechanics: 
 	- [ ] Marks: 
 		- [ ] Leaves blood trails 
 		- [ ] Find 5 polaroids of player and the conflict girl 
 	- [ ] Fear 
-		- [ ] Voices in his head 
+		- [x] Voices in his head 
 		- [ ] Sees things 
-		- [ ] Hears things 
+		- [x] Hears things 
 	- [ ] Dialogue System 
 		- [ ] Conflict with a female 
 		- [ ] Dual nature of conversation -> hints both ways real life and current situation in game 
@@ -36,15 +36,15 @@ Core Loop:
 			- [ ] Urgency 
 			- [ ] Finish 
 		- [ ] Finds out that radio was broken all along [ends with a scream]
-- [ ] Gets back 
-- [ ] Climbs the tower
-- [ ] Jumps In the train 
+- [x] Gets back 
+- [x] Climbs the tower
+- [x] Jumps In the train 
 
 
 Systems: 
 
 - [x] Item interaction -> pickup and attach 
-- [ ] Dialogue System -> plays voices 
+- [x] Dialogue System -> plays voices 
 - [x] Hallucination systems -> voices in the head 
 - [x] Idle Sounds: Walk, Breath (tired), grunt in pain, scream 
 - [x] Walking Camera Motion Sway 

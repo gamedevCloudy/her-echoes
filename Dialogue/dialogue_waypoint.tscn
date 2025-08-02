@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkm8a1x2ywv4g"]
+
+[ext_resource type="Script" path="res://Dialogue/dialogue_waypoint.gd" id="1_waypoint"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_waypoint"]
+radius = 3.0
+
+[node name="DialogueWaypoint" type="Area3D"]
+script = ExtResource("1_waypoint")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_waypoint")

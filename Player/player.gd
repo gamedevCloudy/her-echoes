@@ -28,6 +28,7 @@ var is_walking: bool = false
 signal item_collected(item_name: String)
 
 func _ready() -> void:
+	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	original_camera_position = %Camera3D.position
 	original_camera_rotation = %Camera3D.rotation_degrees
@@ -155,7 +156,13 @@ func enable_movement(duration: float):
 	await get_tree().create_timer(duration).timeout
 	can_move = true
 
-func add_item_to_inventory(item_name: String) -> void:
+func add_item_to_inventory(item) -> void:
+	var item_name: String
+	if item is Item:
+		item_name = item.item_name
+	else:
+		item_name = str(item)
+	
 	inventory.append(item_name)
 	item_collected.emit(item_name)
 	print("Collected: " + item_name + " | Inventory: " + str(inventory))

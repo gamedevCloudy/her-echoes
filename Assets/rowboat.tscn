@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://rowboat_scene_uid"]
+[gd_scene load_steps=3 format=3 uid="uid://clhch5b6l0xq3"]
 
-[ext_resource type="PackedScene" path="res://Assets/Rowboat.glb" id="1_rowboat_model"]
+[ext_resource type="PackedScene" uid="uid://dk7pkhnbade8o" path="res://Assets/Rowboat.glb" id="1_rowboat_model"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rowboat"]
 size = Vector3(4, 1, 8)
