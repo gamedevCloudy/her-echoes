@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4qmoecwhl3v8"]
+
+[ext_resource type="Shader" uid="uid://nthg3voq3tfa" path="res://inside.gdshader" id="2_sb48q"]
+[ext_resource type="PackedScene" uid="uid://cdwuv02yetwu1" path="res://Player/player.tscn" id="3_t88pq"]
+[ext_resource type="PackedScene" uid="uid://7fx8j61vwww5" path="res://Level/Level.tscn" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://dscwh8sde06vl" path="res://Assets/anchor.tscn" id="4_sb48q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0b4ue"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2txt"]
+shader = ExtResource("2_sb48q")
+shader_parameter/red_boost_power = 1.5
+shader_parameter/contrast = 1.1
+shader_parameter/vignette_strength = 0.5
+
+[sub_resource type="Environment" id="Environment_u44n3"]
+background_mode = 1
+background_color = Color(0.014601, 0.0845624, 0.166709, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.252006, 0.368354, 0.609631, 1)
+tonemap_mode = 3
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.393678, 0.577632, 0.683449, 1)
+fog_height = 3.0
+fog_height_density = 0.125
+adjustment_enabled = true
+
+[node name="Game" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568044, 0)
+material = SubResource("StandardMaterial3D_0b4ue")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_f2txt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Player" parent="." instance=ExtResource("3_t88pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.173, 3.07771, 146.311)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u44n3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.910236, 0.41409, 0, -0.41409, 0.910236, 0, 5.0581, 0)
+light_color = Color(0.658994, 0.554872, 0.413941, 1)
+light_energy = 0.4
+
+[node name="Terrain3D" parent="." instance=ExtResource("3_u44n3")]
+
+[node name="Anchor" parent="." instance=ExtResource("4_sb48q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.687, 0.993931, 144.668)
